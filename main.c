@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_BUNNIES 50000
+#define MAX_BUNNIES 80000
 
 typedef struct Bunny {
     Vector2 position;
@@ -69,7 +69,11 @@ int main(void)
                     bunnies[bunniesCount].position = (Vector2) { 0.0f, 50.0f };
                     bunnies[bunniesCount].speed.x = generateRandoms(-250,250)/60.0f;
                     bunnies[bunniesCount].speed.y = generateRandoms(-250,250)/60.0f;
-                    bunnies[bunniesCount].color = (Vector4) { (float)generateRandoms(0, 10)/10, (float)generateRandoms(0, 10)/10, (float)generateRandoms(0, 10)/10, 1.0f };
+                    if(generateRandoms(0, 1) == 0) {
+                    bunnies[bunniesCount].color = (Vector4) { 0.0f, 1.0f, (float)generateRandoms(5, 10)/10, 1.0f };
+                    } else {
+                    bunnies[bunniesCount].color = (Vector4) { 0.8f, 0.0f, (float)generateRandoms(6, 10)/10, 1.0f };
+                    }
                     bunniesCount++;
                 }
             }
@@ -92,7 +96,7 @@ int main(void)
 
             for (int i = 0; i < bunniesCount; i++)
             {
-                vinoxCreateQuad((Quad) { bunnies[i].position, (Vector2) {texBunny.width, texBunny.height} }, EMPTYQUAD, texBunny.id, bunnies[i].color, 0.0f);
+                vinoxCreateQuad((Quad) { bunnies[i].position, (Vector2) {texBunny.width, texBunny.height} }, EMPTYQUAD, texBunny.id, (Vector2) { texBunny.width, texBunny.height }, bunnies[i].color, 0.0f);
             }
 
 
